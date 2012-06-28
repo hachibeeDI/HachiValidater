@@ -32,6 +32,7 @@
 			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
 			this.textBox1 = new HachiValidater.VTextbox();
 			this.button1 = new System.Windows.Forms.Button();
+			this.number1 = new HachiValidater.CheckConfigs.Number(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -41,7 +42,9 @@
 			// 
 			// textBox1
 			// 
+			this.textBox1.checker = this.number1;
 			this.textBox1.errorProvider = this.errorProvider1;
+			this.textBox1.isCanceled = false;
 			this.textBox1.Location = new System.Drawing.Point(126, 187);
 			this.textBox1.message = "数字じゃなきゃだめだよ";
 			this.textBox1.Name = "textBox1";
@@ -78,6 +81,7 @@
 		private System.Windows.Forms.ErrorProvider errorProvider1;
 		private HachiValidater.VTextbox textBox1;
 		private System.Windows.Forms.Button button1;
+		private HachiValidater.CheckConfigs.Number number1;
 
 	}
 }

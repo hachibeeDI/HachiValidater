@@ -40,7 +40,8 @@ namespace HachiValidater.CheckConfigs
 
 		#endregion
 		#endregion
-		#region"Component's Interface"
+
+		#region"Constructor"
 		public CheckComponent()
 		{
 			InitializeComponent();

@@ -18,7 +18,6 @@ namespace testUI
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			textBox1.checker = new HachiValidater.CheckConfigs.Number();
 			textBox1.isCanceled = true;
 		}
 	}
