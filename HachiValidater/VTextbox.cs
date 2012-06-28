@@ -51,6 +51,7 @@ namespace HachiValidater
 		virtual protected void validating(Object sender, CancelEventArgs e)
 		{
 			if (checker == null) { return; }
+			if (this.Text == "") {removeErrorIcon(); return;}
 
 			if (!checker.isConform(this.Text))
 			{
