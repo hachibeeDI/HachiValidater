@@ -14,13 +14,13 @@ namespace HachiValidater.CheckConfigs
 		{
 		}
 		
-		public bool conform()
-		{
+		//public Func<ErrorProvider> conform()
+		//{
 			
-			foreach(var con in controls)
-				checker.isConform(con.Text)?
+		////	foreach(var con in controls)
+		////	{checker.isConform(con.Text)}
 			
-		}
+		//}
 		
 	}
 }
