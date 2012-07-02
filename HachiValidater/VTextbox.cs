@@ -18,7 +18,7 @@ namespace HachiValidater
 		[Category("Validation")]
 		[DefaultValue(null)]
 		[Description("検証ロジックを組み込んだコンポーネント")]
-		public CheckConfigs.IChecker checker { get; set; }
+		public CheckConfigs.IChecker<TextBox> checker { get; set; }
 
 		/// <summary>
 		/// 検証に失敗した場合のフォーカスの遷移を許可するか否か.
@@ -53,7 +53,7 @@ namespace HachiValidater
 			if (checker == null) { return; }
 			if (this.Text == "") {removeErrorIcon(); return;}
 
-			if (!checker.isConform(this.Text))
+			if (!checker.isConfirmed(this))
 			{
 				assertError();
 				e.Cancel = isCanceled;
@@ -61,6 +61,7 @@ namespace HachiValidater
 			else
 			{ removeErrorIcon(); }
 		}
+
 
 		private void assertError()
 		{

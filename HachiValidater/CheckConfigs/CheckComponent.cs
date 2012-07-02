@@ -6,7 +6,8 @@ namespace HachiValidater.CheckConfigs
 	/// デザイナからコンポーネントとしてCheckerを使いたいならこちらを使う。
 	/// コードだけで用いるならICheckerを実装したクラスを作るだけで十分
 	/// </summary>
-	public abstract class CheckComponent : Component, IChecker
+	public abstract class CheckComponent<TControl> : Component, IChecker<TControl>
+		where TControl:System.Windows.Forms.Control
 	{
 		#region"designer"
 		/// <summary>
@@ -55,7 +56,7 @@ namespace HachiValidater.CheckConfigs
 		}
 		#endregion
 
-		public abstract bool isConform(string targ);
+		public abstract bool isConfirmed(TControl targ);
 
 	}
 }
