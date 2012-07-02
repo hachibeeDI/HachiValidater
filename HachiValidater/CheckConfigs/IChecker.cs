@@ -5,8 +5,9 @@ using System.Text;
 
 namespace HachiValidater.CheckConfigs
 {
-	public interface IChecker
+	public interface IChecker<TControl>
+		where TControl:System.Windows.Forms.Control
 	{
-		bool isConform(string targ);
+		bool isConfirmed(TControl targ);
 	}
 }
