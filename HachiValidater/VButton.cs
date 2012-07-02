@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace HachiValidater
 {
-	class VButton:Button
+	public class VButton:Button
 	{
 		public VButton(): base()
 		{
@@ -14,26 +14,21 @@ namespace HachiValidater
 		}
 
 		#region"property"
-		/// <summary>
-		/// 検査対象のコントロールとチェッカー
-		/// </summary>
-		public Dictionary<Control, CheckConfigs.IChecker> checkTargs { get; set; }
-
-		/// <summary>
-		/// 検査対象のコントロールと対応するメッセージ。
-		/// TODO 上記と合わせたふたつはあとで抽象化
-		/// </summary>
-		public Dictionary<Control, string> massages { get; set; }
-
 
 		[Category("Validation")]
 		[DefaultValue(null)]
 		[Description("えらーぷろばいだー")]
 		public ErrorProvider errorProvider { get; set; }
 
+		/// <summary>
+		/// 対象となるコントロールとチェッカーをもったコンテナリスト
+		/// </summary>
+		public List<CheckConfigs.ValidateContainer<Control>> containeres { get; set; }
 
-		//TODO ジェネリックとかで汎用性を持たせたい
-		public delegate void clickaction();
+		/// <summary>
+		/// Validateを通った場合、Clickの次に呼ばれるイベント
+		/// </summary>
+		public event System.EventHandler afterComfirmed;
 		#endregion
 
 		/// <summary>
@@ -43,16 +38,20 @@ namespace HachiValidater
 		/// <param name="e"></param>
 		private new void Click(object sender, System.EventArgs e)
 		{
-			foreach (var con in getControls())
+			bool hasError = false;
+			List<Control> contain;
+			foreach (var con in containeres)
 			{
-
+				con.controls.ForEach(c => errorProvider.SetError(c, null)); //reset error messages
+				contain = con.areConfirm();
+				if (contain.Count != 0)
+				{ 
+					contain.ForEach(c => errorProvider.SetError(c, con.message));
+					hasError = true;
+				}
 			}
+			if (!hasError) { afterComfirmed(this, e); }
 		}
 
-		private IEnumerable<Control> getControls()
-		{
-			foreach (var con in checkTargs.Keys)
-				yield return con;
-		}
 	}
 }
