@@ -6,7 +6,8 @@ using System.ComponentModel;
 
 namespace HachiValidater
 {
-	public class VButton:Button
+	public class VButton<TControl>:Button
+		where TControl:System.Windows.Forms.Control
 	{
 		public VButton(): base()
 		{
@@ -23,7 +24,7 @@ namespace HachiValidater
 		/// <summary>
 		/// 対象となるコントロールとチェッカーをもったコンテナリスト
 		/// </summary>
-		public List<CheckConfigs.ValidateContainer<Control>> containeres { get; set; }
+		public List<CheckConfigs.ValidateContainer<TControl>> containeres { get; set; }
 
 		/// <summary>
 		/// Validateを通った場合、Clickの次に呼ばれるイベント
@@ -39,10 +40,11 @@ namespace HachiValidater
 		private new void Click(object sender, System.EventArgs e)
 		{
 			bool hasError = false;
-			List<Control> contain;
+
+			List<TControl> contain; //avoid the cost that make instance in loop
 			foreach (var con in containeres)
 			{
-				con.controls.ForEach(c => errorProvider.SetError(c, null)); //reset error messages
+				con.controls.ForEach(c => errorProvider.SetError(c, null)); //reset all error messages
 				contain = con.areConfirm();
 				if (contain.Count != 0)
 				{ 
