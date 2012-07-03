@@ -54,6 +54,7 @@
     <Compile Include="CheckConfigs\Number.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CheckConfigs\Omni.cs" />
     <Compile Include="VButton.cs">
       <SubType>Component</SubType>
     </Compile>

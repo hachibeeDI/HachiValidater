@@ -4,22 +4,27 @@ using System.Windows.Forms;
 
 namespace HachiValidater.CheckConfigs
 {
-	public class ValidateContainer
+	public class ValidateContainer<TControl>
+		where TControl:System.Windows.Forms.Control
 	{
-		
-		public List<Control> controls{get;set;}
-		public IChecker checker{get;set;}
-		
-		public ValidateContainer ()
+
+		public List<TControl> controls { get; set; }
+
+		public IChecker<TControl> checker { get; set; }
+
+		public string message { get; set; }
+
+
+		public ValidateContainer(IChecker<TControl> _checker, string _message)
 		{
+			checker = _checker; message = _message;
 		}
-		
-		public bool conform()
+
+
+		public List<TControl> areConfirm()
 		{
-			
-			foreach(var con in controls)
-				checker.isConform(con.Text)?
-			
+			// return Controls that isnot confirmed
+			return controls.FindAll(con => (!checker.isConfirmed(con)));
 		}
 		
 	}
